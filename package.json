@@ -1,0 +1,22 @@
+{
+  "name": "check-redirects",
+  "version": "1.0.0",
+  "description": "Slave service for checking redirects of a safeBrowsing application ",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test":"jest",
+    "prod": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.2",
+    "follow-redirects": "^1.14.7",
+    "nodemon": "2.0.15"
+  },
+  "devDependencies": {
+    "jest": "^27.5.0",
+    "supertest": "^6.2.2"
+  }
+}
