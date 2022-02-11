@@ -33,7 +33,7 @@ jobs:
       with:
         ref: main
     - name: Buld the docker image
-      run: docker build --tag yuprobot/safebrowsing .
+      run: docker build --tag yuprobot/checkredirects .
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
