@@ -1,29 +1,23 @@
 const https  = require('follow-redirects').https;
 module.exports = {
-  checkRedirects: (url, protocol) => {
+  checkRedirects: (url) => {
     return new Promise((resolve, reject) => {
-      if (protocol == 'https') {
-        https.get(`https://`+url, response => {
-          console.log(response.headers);
-          resolve({
+      try{
+        let arr = url.split(" ");
+        console.log(arr[0], arr[1]);
+        https.get(`https://`+arr[0]+arr[1], response => {
+          console.log(response.req._redirectable.Writable.redirectCount);
+           resolve({
             "responseURL": response.responseUrl,
           });
         }).on('error', err => {
           console.error(err);
-          reject({ "error": "some error occured while checking for redirects" });
+          reject({ "error": "some error occurred while checking for redirects" });
         });
       }
-      else {
-        http.get(url, response => {
-          resolve({
-            "responseURL": response.responseUrl,
-            "cookies": response.headers['set-cookie'].length
-          })
-          console.log(response.headers['set-cookie'].length, response.responseUrl);
-        }).on('error', err => {
-          console.error(err);
-          reject({ "error": "some error occured while checking for redirects" })
-        });
+      catch(e){
+        console.log(e);
+        reject({"error":"some error occurred in checking redirects"});
       }
     })
   }

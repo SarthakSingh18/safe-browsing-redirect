@@ -21,8 +21,9 @@ function pullFromQueue() {
                 channel.bindQueue(queue, exchange, '');
                 channel.prefetch(1);
                 channel.consume(queue, async function reply(msg) {
+                    channel.ack(msg);
                     try {
-                        var r = await checkRedirects.checkRedirects(msg.content.toString(), "https");
+                        var r = await checkRedirects.checkRedirects(msg.content.toString());
                         channel.sendToQueue(msg.properties.replyTo, Buffer.from(r.responseURL.toString()), {
                             headers: {"msgFrom": "check-redirect"},
                             correlationId: msg.properties.correlationId
@@ -34,7 +35,6 @@ function pullFromQueue() {
                             correlationId: msg.properties.correlationId
                         });
                     }
-                    channel.ack(msg);
                 });
             });
         });
