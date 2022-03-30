@@ -1,13 +1,12 @@
-const { http, https } = require('follow-redirects');
+const https  = require('follow-redirects').https;
 module.exports = {
   checkRedirects: (url, protocol) => {
     return new Promise((resolve, reject) => {
       if (protocol == 'https') {
-        https.get(url, response => {
-          console.log(response.headers['set-cookie'].length, response.responseUrl);
+        https.get(`https://`+url, response => {
+          console.log(response.headers);
           resolve({
             "responseURL": response.responseUrl,
-            "cookies": response.headers['set-cookie'].length
           });
         }).on('error', err => {
           console.error(err);
