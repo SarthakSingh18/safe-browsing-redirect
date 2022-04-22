@@ -6,7 +6,6 @@ module.exports = {
         let arr = url.split(" ");
         console.log(arr[0], arr[1]);
         https.get(`https://`+arr[0]+arr[1], response => {
-          console.log(response.req._redirectable.Writable.redirectCount);
            resolve({
             "responseURL": response.responseUrl,
           });
